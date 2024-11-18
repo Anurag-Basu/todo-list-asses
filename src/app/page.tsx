@@ -31,7 +31,6 @@ export default function Home() {
   };
 
   const onFormSubmit = (val: any) => {
-    console.log("onFormSubmit", { val });
     const newTask = { task: val.todo, isCompleted: false };
     setTodos((prev) => [...prev, newTask]);
     todoForm.resetFields();
@@ -63,26 +62,28 @@ export default function Home() {
     setSortedTodos(todos);
   }, [todos]);
 
-  console.log({ todos });
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <div className="text-center">Todo List</div>
 
+        {/* Todo Form */}
         <Form onFinish={onFormSubmit} form={todoForm}>
-          <Form.Item name="todo">
+          <Form.Item name="todo" required>
             <Input placeholder="enter a task..." />
           </Form.Item>
 
           <Button htmlType="submit">Add</Button>
         </Form>
 
+        {/* sorting pannel */}
         <div className="sorting-panel">
           <Button onClick={onSortTitle}>Title</Button>
           <Button onClick={onSortIsCompleted}>isCompleted</Button>
           <Button onClick={onClickViewAllTodos}>View All</Button>
         </div>
 
+        {/* Todo list  */}
         <div className="tasks">
           {sortedTodos.map((task, i) => {
             return (
